@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Point counter</string>
+    <string name="team_a">Team A</string>
+    <string name="button">Button</string>
+    <string name="_3_points">+3 Points</string>
+    <string name="reset">Reset</string>
+    <string name="free_throw">FREE THROW</string>
+    <string name="_2_points">+2 Points</string>
+    <string name="B3_points">+3 Points</string>
+    <string name="_B0">0</string>
+    <string name="team_b">TEAM B</string>
+    <string name="Afree_throw">FREE THROW</string>
+    <string name="_A2_points">+2 Points</string>
+    <string name="_A3_points">+3 Points</string>
+    <string name="_A0">0</string>
+    <string name="Ateam_a">TEAM A</string>
+    <string name="team_A">TEAM A</string>
+</resources>
