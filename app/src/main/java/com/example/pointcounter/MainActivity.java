@@ -6,18 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
 public class MainActivity extends AppCompatActivity {
-
+    private DBHandler dbHandler;
+    private TextView teamAScore,teamBScore;
+    private  String WinnerTeam="Tie";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        teamAScore=findViewById(R.id.TeamAScore_text_view);
+        teamBScore=findViewById(R.id.TeamBScore_text_view);
 
         Button b1=(Button) findViewById(R.id.button);
 
@@ -81,11 +85,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button rstButton=(Button) findViewById(R.id.button4);
-
+        dbHandler = new DBHandler(MainActivity.this);
         rstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 reset(view);
+
+                //WinnerTeam.setText("");
+                makeZero();
             }
         });
 
@@ -119,24 +126,43 @@ public class MainActivity extends AppCompatActivity {
 
         //reset button
     private void reset(View view) {
-            if(teamA>teamB)
+            //String winner="Tie";
+
+        // below line is to get data from all TextView fields.
+        Integer TeamAScore = Integer.valueOf(teamAScore.getText().toString());
+        Integer TeamBScore  = Integer.valueOf(teamBScore.getText().toString());
+        //String Winner = WinnerTeam.getText().toString();
+        Toast.makeText(MainActivity.this, "Scores has been added", Toast.LENGTH_SHORT).show();
+
+            if(TeamAScore>TeamBScore)
             {
+                WinnerTeam="Team A";
+                //WinnerTeam.setText(winner);
+                dbHandler.addNewScores(TeamAScore,TeamBScore,WinnerTeam);
                 Toast.makeText(this, "Winner : Team A ", Toast.LENGTH_SHORT).show();
             }
-            if(teamB>teamA)
+            if(TeamAScore<TeamBScore)
             {
+                WinnerTeam="Team B";
+                //WinnerTeam.setText(winner);
+                dbHandler.addNewScores(TeamAScore,TeamBScore,WinnerTeam);
                 Toast.makeText(this, "Winner : Team B ", Toast.LENGTH_SHORT).show();
             }
             if(teamA==teamB)
             {
+               // WinnerTeam.setText(winner);
+                dbHandler.addNewScores(TeamAScore,TeamBScore,WinnerTeam);
                 Toast.makeText(this, "Tie", Toast.LENGTH_SHORT).show();
             }
+
+        }
+        private void makeZero()
+        {
             teamA = 0;
             teamB = 0;
             displayForTeamA(teamA);
             displayForTeamB(teamB);
         }
-
 
     public void incrementByThreeB(View view)
     {
